@@ -20,14 +20,15 @@ Buy a domain, deploy NGINX on an EC2 instance, and make the page load over your 
 ## 4. Testing
 - Domain access: http://nginx.jaydenm.org - NGINX welcome page loads
 <img width="1680" height="1050" alt="Screenshot 2026-02-08 at 16 16 37" src="https://github.com/user-attachments/assets/46e21ca1-7225-4a17-8267-72e796a8cf09" />
+
 ## Challenges Encountered
 
 **Challenge 1: NGINX page not loading**
-- **Problem**: When accessing the domain, browser showed "This site can't be reached"
-- **Root Cause**: Browser was auto-redirecting to HTTPS instead of HTTP
-- **Solution**: Explicitly used `http://` in the URL since SSL/TLS wasn't configured yet
+- Problem: When accessing the domain, browser showed "This site can't be reached"
+- Root Cause: Browser was auto-redirecting to HTTPS instead of HTTP
+- Solution: Explicitly used `http://` in the URL since SSL/TLS wasn't configured yet
 
 **Challenge 2: "Web server is down" message**
-- **Problem**: Cloudflare showing error even though EC2 was running
-- **Root Cause**: Cloudflare proxy (orange cloud) was enabled, expecting HTTPS
-- **Solution**: Changed DNS to "DNS only" mode (gray cloud) for HTTP compatibility
+- Problem: Cloudflare showing error even though EC2 was running
+- Root Cause: Cloudflare proxy (orange cloud) was enabled, expecting HTTPS
+- Solution: Changed DNS to "DNS only" mode (gray cloud) for HTTP compatibility
