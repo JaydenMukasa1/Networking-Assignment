@@ -17,3 +17,5 @@ Buy a domain, deploy NGINX on an EC2 instance, and make the page load over your 
 - Pointed it to the IPv4 address
 <img width="1329" height="318" alt="Screenshot 2026-02-08 at 16 19 47" src="https://github.com/user-attachments/assets/31bcaec4-444a-4a15-a36f-e0b3e7f0bf31" />
 
+## 4. Testing
+- 
