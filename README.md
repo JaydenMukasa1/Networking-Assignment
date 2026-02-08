@@ -1,7 +1,7 @@
 # AWS EC2 + NGINX Domain Deployment
 
 ## Objective 
-Buy a domain, deploy NGINX on an EC2 instance, and make the page load over your my domain. Here are the steps I took. 
+Buy a domain, deploy NGINX on an EC2 instance, and make the page load over my domain. Here are the steps I took. 
 
 ## 1. Buy a Domain
 - Bought jaydenm.org through cloudflare.
