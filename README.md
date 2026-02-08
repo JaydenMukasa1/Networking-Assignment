@@ -32,3 +32,51 @@ Buy a domain, deploy NGINX on an EC2 instance, and make the page load over your 
 - Problem: Cloudflare showing error even though EC2 was running
 - Cause: Cloudflare proxy (orange cloud) was enabled, expecting HTTPS
 - Solution: Changed DNS to "DNS only" mode (gray cloud) for HTTP compatibility
+
+## Architecture Overview
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│                          Internet Users                               │
+└────────────────────────────────┬─────────────────────────────────────┘
+                                 │
+                                 │ HTTP Request
+                                 │ http://nginx.jaydenm.org
+                                 ▼
+                    ┌────────────────────────┐
+                    │   Cloudflare DNS       │
+                    │   (DNS Only Mode)      │
+                    │                        │
+                    │   A Record:            │
+                    │   nginx.jaydenm.org → IP│
+                    └────────────┬───────────┘
+                                 │
+                                 │ Resolves to EC2 Public IP
+                                 │
+                                 ▼
+                    ┌────────────────────────┐
+                    │     AWS Cloud          │
+                    │  ┌──────────────────┐  │
+                    │  │   EC2 Instance   │  │
+                    │  │                  │  │
+                    │  │  Amazon Linux 2  │  │
+                    │  │  ┌────────────┐  │  │
+                    │  │  │   NGINX    │  │  │
+                    │  │  │  Port 80   │  │  │
+                    │  │  └────────────┘  │  │
+                    │  │                  │  │
+                    │  │  Public IP:      │  │
+                    │  │  [Your IP]       │  │
+                    │  └──────────────────┘  │
+                    │                        │
+                    │  Security Group:       │
+                    │  • HTTP (80) ✓         │
+                    │  • SSH (22) ✓          │
+                    └────────────────────────┘
+```
+
+**Traffic Flow:**
+1. User enters `http://nginx.jaydenm.org` in browser
+2. Cloudflare DNS resolves subdomain to EC2 public IPv4 address
+3. Request reaches EC2 instance through security group (port 80)
+4. NGINX web server serves the default welcome page
+5. Response sent back to user's browser
